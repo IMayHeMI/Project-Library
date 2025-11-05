@@ -8,6 +8,36 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    
+    <form action="#" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+
+        <label for="author">Author:</label>
+        <input type="text" name="author" id="author">
+
+        <label for="pages">Amount of pages:</label>
+        <input type="number" name="pages" id="pages">
+
+        <label for="isRead">
+            Read?
+            <input type="checkbox" name="isRead" id="isRead">
+        </label>
+        
+        <button type="submit" id="addBookButton">Add Book</button>
+    </form>
+
+    <div class="container">
+        <div class="book">
+            <div class="name">Harry Potter and Philosophean Stone</div>
+            <div class="author">Rowling</div>
+            <div class="pagesAmount">400 pages</div>
+        </div>
+
+        <div class="book">
+            <div class="name">Harry Potter</div>
+            <div class="author">Rowling</div>
+            <div class="pagesAmount">400 pages</div>
+        </div>
+    </div>
 </body>
 </html>
