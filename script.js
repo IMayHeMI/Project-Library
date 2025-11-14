@@ -1,12 +1,13 @@
 const container = document.querySelector('.container');
 const form = document.querySelector('form');
-const submitButton = document.getElementById('addBookButton');
+const addButton = document.getElementById('addBookButton');
+const readButton = document.querySelector('.readButton');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 })
 
-submitButton.addEventListener('click', addBook);
+addButton.addEventListener('click', addBook);
 
 const myLibrary = [];
 
@@ -53,19 +54,46 @@ function displayBooks (myLibrary){
         const displayedTitle = document.createElement('div');
         const displayedAuthor = document.createElement('div');
         const displayedPages = document.createElement('div');
+        const buttons = document.createElement('div');
+        const readState = document.createElement('div');
+        const remove = document.createElement('div');
 
         displayedBook.classList.add('book');
+        displayedBook.id = book.id;
         displayedTitle.classList.add('name');
         displayedAuthor.classList.add('author');
         displayedPages.classList.add('pagesAmount');
+        buttons.classList.add('buttons');
+        readState.className = 'readButton';
+        remove.className = 'removeButton';
 
         displayedTitle.textContent = book.title;
         displayedAuthor.textContent = book.author;
         displayedPages.textContent = book.pagesAmount;
+        readState.textContent = 'Not read';
+        remove.textContent = 'Remove book'
 
         container.appendChild(displayedBook);
         displayedBook.appendChild(displayedTitle);
         displayedBook.appendChild(displayedAuthor);
         displayedBook.appendChild(displayedPages);
+        displayedBook.appendChild(buttons);
+        buttons.appendChild(readState);
+        buttons.appendChild(remove);
+
+        readState.addEventListener('click', () => {
+            changeReadButtonState(readState);
+        })        
     });
+}
+
+function changeReadButtonState(button){
+    if (button.textContent.trim() === 'Read') {
+        button.textContent = 'Not read';
+        button.style.backgroundColor = 'rgba(116, 109, 108, 1)';
+    }
+    else {
+        button.textContent = 'Read';
+        button.style.backgroundColor = 'rgb(140, 208, 38)';
+    }
 }

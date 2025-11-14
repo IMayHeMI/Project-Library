@@ -114,10 +114,17 @@ label {
     font-size: 1rem;
     border-radius: 0px 5px 5px 5px;
     border: none;
-    background-color: rgb(140, 208, 38);
 }
 
 .readButton:hover {
     cursor: pointer;
     box-shadow: 2px 2px 2px black;
+}
+
+.isRead {
+    background-color: rgb(140, 208, 38);
+}
+
+.notRead {
+    background-color: rgba(116, 109, 108, 1);
 }
