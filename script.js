@@ -9,7 +9,7 @@ form.addEventListener('submit', (e) => {
 
 addButton.addEventListener('click', addBook);
 
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pagesAmount, id, isRead){
     if(!new.target){
@@ -31,7 +31,7 @@ function Book(title, author, pagesAmount, id, isRead){
     };
 };
 
-function addBook(){
+function addBook() {
     const title = document.getElementById('name').value.trim();
     const author = document.getElementById('author').value.trim();
     const pagesAmount = document.getElementById('pages').value;
@@ -46,7 +46,7 @@ function addBook(){
     form.reset();
 }
 
-function displayBooks (myLibrary){
+function displayBooks() {
     container.innerHTML = '';
 
     myLibrary.forEach(book => {
@@ -64,13 +64,21 @@ function displayBooks (myLibrary){
         displayedAuthor.classList.add('author');
         displayedPages.classList.add('pagesAmount');
         buttons.classList.add('buttons');
-        readState.className = 'readButton';
+        readState.classList.add('readButton');
+        if (book.isRead) {
+            readState.classList.add('isRead');
+            readState.textContent = 'Read';
+        }
+        else {
+            readState.classList.add('notRead');
+            readState.textContent = 'Not read';
+        }
         remove.className = 'removeButton';
+        remove.dataset.id = book.id;
 
         displayedTitle.textContent = book.title;
         displayedAuthor.textContent = book.author;
         displayedPages.textContent = book.pagesAmount;
-        readState.textContent = 'Not read';
         remove.textContent = 'Remove book'
 
         container.appendChild(displayedBook);
@@ -82,18 +90,34 @@ function displayBooks (myLibrary){
         buttons.appendChild(remove);
 
         readState.addEventListener('click', () => {
-            changeReadButtonState(readState);
-        })        
+            book.isRead = changeReadButtonState(readState);
+        });
+        
+        remove.addEventListener('click', removeBook);
     });
 }
 
 function changeReadButtonState(button){
+    let isRead = false;
+
     if (button.textContent.trim() === 'Read') {
         button.textContent = 'Not read';
         button.style.backgroundColor = 'rgba(116, 109, 108, 1)';
+        isRead = false;
     }
     else {
         button.textContent = 'Read';
         button.style.backgroundColor = 'rgb(140, 208, 38)';
+        isRead = true;
     }
+
+    return isRead;
+}
+
+function removeBook(e){
+    const id = e.currentTarget.dataset.id;
+
+    myLibrary = myLibrary.filter(book => book.id !== id);
+
+    displayBooks();
 }
